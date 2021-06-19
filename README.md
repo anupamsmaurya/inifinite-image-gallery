@@ -1,6 +1,17 @@
-# Getting Started with Create React App
+# Inifinite Flickr Image Gallery
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+This app uses [IntersctionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) to implement infinite scroll pagination. Images are fetch from flickr's [getRecent](https://www.flickr.com/services/api/flickr.photos.getRecent.html) API. 
+
+User can pin(or unpin) any image by pressing `Favourite` button. These images will be preserved on page refresh. 
+
+Images are lazily loaded i.e. containers initially show a common placeholder image and when an image container is scrolled into the view then it will be replaced with the actual image. `IntersctionObserver` is again used for this behaviour.
+
+
+## Future Enhancements
+* Right now the page size is hardcoded to 20. It can be made dynamic based on the viewport size to improve user experience.
+* Placeholder images are directly replaced with actual url on intersection. Animation can be added to make this smooth.
 
 ## Available Scripts
 
