@@ -1,10 +1,12 @@
 import { PhotoType } from "./type-definitions"
 
-export const checkIfFavourite = (id: string) => {
-    const list = getFavoriteList()
-    return list.length === 0 ? false : list.find((item: PhotoType) => item.id === id)
-}
-
+/**
+ * Toggles status of an image as favourite or not. 
+ * Uses localStorage to persist data on page refresh.
+ * While marking an image as favourite adds 'favourite: true' 
+ * so that it can be shown as default(useState()) on render.
+ * @param photo PhotoType image object
+ */
 export const toggleFavourite = (photo: PhotoType) => {
     let list = getFavoriteList()
     if(list.find((item: PhotoType) => item.id === photo.id)) {
@@ -15,9 +17,12 @@ export const toggleFavourite = (photo: PhotoType) => {
     localStorage.setItem('gallery-favourites', JSON.stringify(list))
 }
 
-export const getFavoriteList = () => {
+/**
+ * Returns all images which are marked favourite from localStorage.
+ * @returns list of images marked favourite
+ */
+export const getFavoriteList = (): Array<PhotoType> => {
     const strValue = localStorage.getItem('gallery-favourites') 
-    //debugger
     if(!strValue) return []
     return JSON.parse(strValue)
 }

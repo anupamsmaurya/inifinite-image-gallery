@@ -1,5 +1,10 @@
 import { RefObject, useEffect } from "react"
 
+/**
+ * Custom hook which implements IntersectionObserver for inifinite scrolling.
+ * @param loader RefObject which is the target for oberver
+ * @param callback function to call on intersection
+ */
 const useLoader = (loader: RefObject<HTMLDivElement>, callback: () => void) => {
 
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
@@ -17,14 +22,15 @@ const useLoader = (loader: RefObject<HTMLDivElement>, callback: () => void) => {
         };
 
         const observer = new IntersectionObserver(handleIntersection, options);
+        const currentRef = loader.current
 
-        if (loader && loader.current) {
-            observer.observe(loader.current);
+        if (currentRef) {
+            observer.observe(currentRef);
         }
 
         return () => {
-            if (loader && loader.current) { 
-                observer.unobserve(loader.current);
+            if (currentRef) { 
+                observer.unobserve(currentRef);
             }            
         }
     }, [loader, callback]);

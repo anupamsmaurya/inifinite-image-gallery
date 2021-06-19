@@ -3,12 +3,20 @@ import useIntersection from './intersection-hook'
 
 interface ImageProps {
   url: string,
-  thumb: string
+  placeholder: string,
+  title: string
 }
 
-const ImageRenderer: React.FC<ImageProps> = ({ url, thumb }) => {
+/**
+ * Image component, initially shows a placholder image and later replaces with 
+ * actual image based on IntersectionObserver. This saves bandwidth by only downloading images
+ * which are above the fold.
+ */
+const ImageRenderer: React.FC<ImageProps> = ({ url, placeholder, title }) => {
     const [isInView, setIsInView] = useState(false)
     const imgRef = useRef<HTMLImageElement>(null)
+
+    //use custom intersection hook to lazily download image.
     useIntersection(imgRef, () => {
       setIsInView(true)
     })
@@ -17,7 +25,8 @@ const ImageRenderer: React.FC<ImageProps> = ({ url, thumb }) => {
             <img
               ref={imgRef}
               className='image'
-              src={isInView ? url: thumb}
+              src={isInView ? url: placeholder}
+              alt={title}
             />
     )
   }
