@@ -13,6 +13,8 @@ Images are lazily loaded i.e. containers initially show a common placeholder ima
 * Right now the page size is hardcoded to 20. It can be made dynamic based on the viewport size to improve user experience.
 * Placeholder images are directly replaced with actual url on intersection. Animation can be added to make this smooth.
 
+## Demo: https://inifinite-image-gallery.vercel.app/
+
 ## Available Scripts
 
 In the project directory, you can run:
